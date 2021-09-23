@@ -28,7 +28,22 @@ dependencies {
 ### Simple ButtonsGroup
 
 ```
+var buttonsGroup by remember { mutableStateOf(3) }
 
+ButtonsGroup(
+    modifier = Modifier
+        .fillMaxWidth(),
+    size = 5,
+    strokeWidth = 1.dp,
+    strokeColors = StateColors(Color.Magenta, Color.DarkGray.copy(alpha = 0.75f)),
+    backgroundColors = StateColors(Color.Magenta, Color.DarkGray.copy(alpha = 0.75f)),
+    value = buttonsGroup,
+    onValueChange = {
+        buttonsGroup = it
+    }
+) {
+    Text("Button $it")
+}
 
 ```
 
