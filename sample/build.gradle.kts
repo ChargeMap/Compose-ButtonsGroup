@@ -5,7 +5,18 @@ plugins {
 }
 
 android {
-    kotlinOptions.jvmTarget = "1.8"
+// JAVA 11
+    compileOptions {
+        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_11
+        targetCompatibility = org.gradle.api.JavaVersion.VERSION_11
+    }
+
+    project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_11.toString()
+        }
+    }
+
     buildFeatures.compose = true
 
     composeOptions {

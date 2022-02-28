@@ -23,7 +23,9 @@ fun MainActivityUI() {
     val scrollState = rememberScrollState()
 
     var buttonsGroup1 by remember { mutableStateOf(0) }
-    var buttonsGroup2 by remember { mutableStateOf(3) }
+    var buttonsGroup2 by remember { mutableStateOf("🎉") }
+
+    val list2 = listOf("🎉", "🍉", "🎁")
 
     MaterialTheme {
         Scaffold(
@@ -45,7 +47,7 @@ fun MainActivityUI() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 16.dp),
-                        size = 3,
+                        values = IntRange(0, 3).toList(),
                         value = buttonsGroup1,
                         onValueChange = {
                             buttonsGroup1 = it
@@ -58,7 +60,7 @@ fun MainActivityUI() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 16.dp),
-                        size = 5,
+                        values = list2,
                         strokeWidth = 2.dp,
                         strokeColors = StateColors(Color.Magenta, Color.DarkGray.copy(alpha = 0.75f)),
                         value = buttonsGroup2,

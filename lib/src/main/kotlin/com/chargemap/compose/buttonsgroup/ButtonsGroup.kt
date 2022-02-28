@@ -20,63 +20,60 @@ class StateColors(
 )
 
 @Composable
-fun ButtonsGroup(
+fun <T> ButtonsGroup(
     modifier: Modifier = Modifier,
-    value: Int,
-    size: Int = 1,
-    onValueChange: (Int) -> Unit,
+    value: T,
+    values: List<T>,
+    onValueChange: (T) -> Unit,
     strokeWidth: Dp = 1.dp,
     strokeColors: StateColors = StateColors(MaterialTheme.colors.primary, Color.DarkGray.copy(alpha = 0.75f)),
     backgroundColors: StateColors = StateColors(MaterialTheme.colors.surface, MaterialTheme.colors.surface),
     cornerRadius: Dp? = null,
-    content: @Composable (Int) -> Unit = {},
+    content: @Composable (T) -> Unit = {},
 ) {
     val radius = cornerRadius ?: 8.dp
 
     Row(
         modifier = modifier
     ) {
-        repeat((0 until size).count()) { index ->
+        values.forEachIndexed { i, it ->
             OutlinedButton(
                 modifier = Modifier
                     .weight(1f)
                     .offset(
-                        when (index) {
+                        when (i) {
                             0 -> 0.dp
-                            else -> -(strokeWidth.value * (index)).dp
+                            else -> -(strokeWidth.value * (i)).dp
                         }, 0.dp
                     )
                     .zIndex(
                         when (value) {
-                            index -> 1f
+                            it -> 1f
                             else -> 0f
                         }
                     ),
-                onClick = { onValueChange(index) },
-                shape = when (index) {
+                onClick = { onValueChange(it) },
+                shape = when (i) {
                     // left outer button
                     0 -> RoundedCornerShape(topStart = radius, topEnd = 0.dp, bottomStart = radius, bottomEnd = 0.dp)
                     // right outer button
-                    size - 1 -> RoundedCornerShape(topStart = 0.dp, topEnd = radius, bottomStart = 0.dp, bottomEnd = radius)
+                    values.size - 1 -> RoundedCornerShape(topStart = 0.dp, topEnd = radius, bottomStart = 0.dp, bottomEnd = radius)
                     // middle button
                     else -> RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp, bottomStart = 0.dp, bottomEnd = 0.dp)
                 },
                 border = BorderStroke(
                     strokeWidth,
                     when (value) {
-                        index -> strokeColors.active
+                        it -> strokeColors.active
                         else -> strokeColors.inActive
                     }
                 ),
-                colors = if (value == index) {
-                    // selected colors
-                    ButtonDefaults.outlinedButtonColors(backgroundColor = backgroundColors.active, contentColor = strokeColors.active)
-                } else {
-                    // not selected colors
-                    ButtonDefaults.outlinedButtonColors(backgroundColor = backgroundColors.inActive, contentColor = strokeColors.inActive)
+                colors = when (value) {
+                    it -> ButtonDefaults.outlinedButtonColors(backgroundColor = backgroundColors.active, contentColor = strokeColors.active)
+                    else -> ButtonDefaults.outlinedButtonColors(backgroundColor = backgroundColors.inActive, contentColor = strokeColors.inActive)
                 },
                 content = {
-                    content(index)
+                    content(it)
                 }
             )
         }
