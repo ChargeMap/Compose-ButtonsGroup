@@ -27,13 +27,16 @@ dependencies {
 
 ### Simple ButtonsGroup
 
+You may use any type of list to provide the group values. 
+Here is an example with Integers : 
+
 ```
 var state by remember { mutableStateOf(3) }
 
 ButtonsGroup(
     modifier = Modifier
         .fillMaxWidth(),
-    size = 5,
+    values = IntRange(0, 3).toList(),
     strokeWidth = 1.dp,
     strokeColors = StateColors(Color.Magenta, Color.DarkGray.copy(alpha = 0.75f)),
     backgroundColors = StateColors(Color.Magenta, Color.DarkGray.copy(alpha = 0.75f)),
