@@ -24,8 +24,10 @@ fun MainActivityUI() {
 
     var buttonsGroup1 by remember { mutableStateOf(0) }
     var buttonsGroup2 by remember { mutableStateOf("🎉") }
+    var buttonsGroup3 by remember { mutableStateOf("hi") }
 
-    val list2 = listOf("🎉", "🍉", "🎁")
+    val list2 = listOf("🎉", "🍉", "🎁", "🚀")
+    val listTexts = listOf("hello", "hi", "hello the whole world this is me !")
 
     MaterialTheme {
         Scaffold(
@@ -69,6 +71,21 @@ fun MainActivityUI() {
                         }
                     ) {
                         Text("Button $it")
+                    }
+
+                    ButtonsGroup(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 16.dp),
+                        values = listTexts,
+                        strokeWidth = 2.dp,
+                        strokeColors = StateColors(Color.Magenta, Color.DarkGray.copy(alpha = 0.75f)),
+                        value = buttonsGroup3,
+                        onValueChange = {
+                            buttonsGroup3 = it
+                        }
+                    ) {
+                        Text(it)
                     }
                 }
             }

@@ -1,8 +1,7 @@
 package com.chargemap.compose.buttonsgroup
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
@@ -35,11 +34,13 @@ fun <T> ButtonsGroup(
 
     Row(
         modifier = modifier
+            .height(IntrinsicSize.Min)
     ) {
         values.forEachIndexed { i, it ->
             OutlinedButton(
                 modifier = Modifier
                     .weight(1f)
+                    .fillMaxHeight()
                     .offset(
                         when (i) {
                             0 -> 0.dp
